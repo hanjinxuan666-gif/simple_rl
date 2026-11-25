@@ -90,6 +90,7 @@ class GridWorldMDP(MDP):
         param_dict["lava_locs"] = self.lava_locs
         param_dict["walls"] = self.walls
         param_dict["is_goal_terminal"] = self.is_goal_terminal
+        param_dict["is_lava_terminal"] = self.is_lava_terminal
         param_dict["gamma"] = self.gamma
         param_dict["slip_prob"] = self.slip_prob
         param_dict["step_cost"] = self.step_cost
@@ -211,9 +212,6 @@ class GridWorldMDP(MDP):
         landed_in_term_goal = (next_state.x, next_state.y) in self.goal_locs and self.is_goal_terminal
         landed_in_term_lava = (next_state.x, next_state.y) in self.lava_locs and self.is_lava_terminal
         if landed_in_term_goal or landed_in_term_lava:
-            next_state.set_terminal(True)
-
-        if (next_state.x, next_state.y) in self.lava_locs:
             next_state.set_terminal(True)
 
         return next_state
